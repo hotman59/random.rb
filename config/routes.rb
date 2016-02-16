@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :people
    root 'groups#index'
+   get 'randomize' => 'groups#random_people'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

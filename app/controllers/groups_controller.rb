@@ -8,6 +8,35 @@ class GroupsController < ApplicationController
     @people = Person.all
   end
 
+#algo random
+  def random_people
+    @groups = Group.all
+    @people = Person.all
+    my_max_group = (@people.size / @groups.size).ceil + 1
+    id_group = []
+
+    @people.each do |p|
+      p.group_id = nil
+      p.save
+    end
+
+    @groups.each do |group|
+      id_group << group.id
+    end
+
+    @people.each do |i|
+      random_group = id_group.sample
+      i.group_id = random_group
+        i.save
+
+      if @people.where(group_id: random_group).size == my_max_group
+        id_group.delete(random_group)
+      end
+  end
+  redirect_to root_path
+
+  end
+
   # GET /groups/1
   # GET /groups/1.json
   def show
@@ -61,6 +90,8 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
