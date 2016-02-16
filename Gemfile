@@ -1,6 +1,14 @@
 source 'https://rubygems.org'
 
 
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap_form'
+gem 'autoprefixer-rails'
+gem 'sprockets-rails', '>= 2.1.4'
+
+
+
+gem 'bootstrap-sass', '~> 3.3.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record
@@ -44,4 +52,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
