@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :minim_group, only: [:random_people]
 
   # GET /groups
   # GET /groups.json
@@ -16,7 +17,7 @@ class GroupsController < ApplicationController
     id_group = []
 
     @people.each do |p|
-      p.group_id = nil
+      p.group_id = 0
       p.save
     end
 
@@ -28,7 +29,6 @@ class GroupsController < ApplicationController
       random_group = id_group.sample
       i.group_id = random_group
         i.save
-
       if @people.where(group_id: random_group).size == my_max_group
         id_group.delete(random_group)
       end
@@ -99,6 +99,11 @@ class GroupsController < ApplicationController
       @group = Group.find(params[:id])
     end
 
+def minim_group
+if Group.all.size < 2
+  redirect_to root_path, notice: "il manque le nombre de groupe"
+end
+end
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
       params.require(:group).permit(:name_group, :salle, :tache)
