@@ -35,7 +35,7 @@ redirect_to :root
 end
 
 #algo random
-  def random_people
+  # def random_people
   #   @groups = Group.all
   #   @people = Person.all
   #
@@ -64,6 +64,11 @@ end
 
 def random_people
    idperson = Person.all.map{|x| x.id}
+   Person.all.each do |p|
+      p.group_id = 0
+      p.sensei = false
+      p.save
+   end
    if Group.all.count>0
      while idperson.count >0
        Group.all.each do |grp|
@@ -76,12 +81,14 @@ def random_people
          idperson.delete(a)
        end
      end
-     else
-       redirect_to :root, notice: "ther have to be a least one group .Dumbass!"
-     end
      redirect_to :root, notice: "Yataî  all has been randomized!!!"
+
+     else
+       redirect_to :root, notice: "ther have to be a least one group"
+     end
+
  end
-end
+
 
   # GET /groups/1
   # GET /groups/1.json
