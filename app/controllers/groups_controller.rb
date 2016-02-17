@@ -36,33 +36,52 @@ end
 
 #algo random
   def random_people
-    @groups = Group.all
-    @people = Person.all
+  #   @groups = Group.all
+  #   @people = Person.all
+  #
+  #   my_max_group = (@people.size / @groups.size).ceil + 1
+  #   id_group = []
+  #
+  #   @people.each do |p|
+  #     p.group_id = 0
+  #     p.sensei = false
+  #     p.save
+  #   end
+  #
+  #   @groups.each do |group|
+  #     id_group << group.id
+  #   end
+  #
+  #   @people.each do |i|
+  #     random_group = id_group.sample
+  #     i.group_id = random_group
+  #       i.save
+  #     if @people.where(group_id: random_group).size == my_max_group
+  #       id_group.delete(random_group)
+  #     end
+  # end
+  # redirect_to root_path
 
-    my_max_group = (@people.size / @groups.size).ceil + 1
-    id_group = []
-
-    @people.each do |p|
-      p.group_id = 0
-      p.sensei = false
-      p.save
-    end
-
-    @groups.each do |group|
-      id_group << group.id
-    end
-
-    @people.each do |i|
-      random_group = id_group.sample
-      i.group_id = random_group
-        i.save
-      if @people.where(group_id: random_group).size == my_max_group
-        id_group.delete(random_group)
-      end
-  end
-  redirect_to root_path
-
-  end
+def random_people
+   idperson = Person.all.map{|x| x.id}
+   if Group.all.count>0
+     while idperson.count >0
+       Group.all.each do |grp|
+         a = idperson.sample
+         Person.find(a).update_attributes(group_id: grp.id) unless a.nil?
+         ## summarize that:
+         # b = Person.find(a)
+         # b.group_id = grp.id
+         # b.save
+         idperson.delete(a)
+       end
+     end
+     else
+       redirect_to :root, notice: "ther have to be a least one group .Dumbass!"
+     end
+     redirect_to :root, notice: "Yataî  all has been randomized!!!"
+ end
+end
 
   # GET /groups/1
   # GET /groups/1.json
