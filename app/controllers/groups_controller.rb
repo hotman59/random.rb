@@ -111,6 +111,13 @@ end
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+      team = Person.all
+      team.each do |person|
+      if person.group_id == @group.id
+        person.group_id = nil
+        person.save
+      end
+    end
     @group.destroy
     respond_to do |format|
       format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }

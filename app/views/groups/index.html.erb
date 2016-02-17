@@ -35,12 +35,15 @@
           <td><%= group.tache %></td>
           <!-- <td><%= link_to 'Show', group %></td> -->
           <td><%= link_to 'Edit', edit_group_path(group) %></td>
-          <td><button type="button" name="button"><%= link_to 'Clearteam', clearteam_path(group) %></button></td>
+          <td>
+            <button type="button" name="button"><%= link_to 'Clearteam', clearteam_path(group) %></button>
+          </td>
 
           <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <td>
 
             <div class="col-lg-offset-4">
+
               <% @people.each do |person|%>
               <p>
                 <% if group.id == person.group_id%>
@@ -91,13 +94,12 @@
         </thead>
 
         <tbody>
-          <% @people.each do |personson| %>
+          <% @people.each do |person| %>
           <tr>
-            <td><%= personson.name %></td>
-            <!-- <td><%= personson.email %></td> -->
-            <!-- <td>0<%= personson.tel %></td> -->
-            <!-- <td><%= personson.group_id %></td> -->
-            <td><%= personson.sensei %></td>
+            <% if person.group_id == nil %>
+            <td><%= person.name %></td>
+            <td><%= person.sensei %></td>
+            <%end%>
           </tr>
           <% end %>
         </tbody>
