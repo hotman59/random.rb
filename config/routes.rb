@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :people
    root 'groups#index'
+   get 'change_sensei/:id' => 'groups#update_sensei', as: 'updatesensei'
    get 'randomize' => 'groups#random_people'
 
   # The priority is based upon order of creation: first created -> highest priority.

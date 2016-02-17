@@ -2,102 +2,103 @@
 
 <h1>Organisation</h1>
 
-
-
-
-
-
 <header class="navbar navbar-default" role="navigation">
-   <div class="navbar-inner">
-     <div class="container">
-       <div id="logo" class="navbar-brand">
-         <%= link_to "OrganiZation", root_path %>
-       </div>
-       <nav class="collapse navbar-collapse navbar-ex1-collapse">
-                 <ul class="nav navbar-nav navbar-right">
-                   <li> <%= link_to "Utilisateurs",  people_path %></li>
-                  </ul>
-           </nav>
-</header>
+  <div class="navbar-inner">
+    <div class="container">
+      <div id="logo" class="navbar-brand">
+        <%= link_to "OrganiZation", root_path %>
+      </div>
+      <nav class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= link_to "Utilisateurs",  people_path %></li>
+        </ul>
+      </nav>
+    </header>
 
+    <table>
+      <thead>
+        <tr>
+          <th>Name group</th>
+          <th>Salle</th>
+          <th>Tache</th>
+          <th colspan="3"></th>
+          <th>content</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <% @groups.each do |group| %>
+        <tr>
+          <td><%= group.name_group %></td>
+          <td><%= group.salle %></td>
+          <td><%= group.tache %></td>
+          <!-- <td><%= link_to 'Show', group %></td> -->
+          <td><%= link_to 'Edit', edit_group_path(group) %></td>
+          <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
 
+            <div class="col-lg-offset-4">
+              <% @people.each do |person|%>
+              <p>
+                <% if group.id == person.group_id%>
+                <%= person.name%>
+                <%if person.sensei%>
 
+                SENSEI!
 
-<table>
-  <thead>
-    <tr>
-      <th>Name group</th>
-      <th>Salle</th>
-      <th>Tache</th>
-      <th colspan="3"></th>
-      <th>
-        content
-      </th>
-    </tr>
-  </thead>
+                <%end%>
+                <br>
+                <%=link_to "Update_sensei", updatesensei_path(person)%>
+                <br>
+                <% end %>
+              </p>
 
-  <tbody>
-    <% @groups.each do |group| %>
-      <tr>
-        <td><%= group.name_group %></td>
-        <td><%= group.salle %></td>
-        <td><%= group.tache %></td>
-        <!-- <td><%= link_to 'Show', group %></td> -->
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <td>
+              <% end %>
+            </td>
+          </tr>
+        </div>
 
-      <% @people.each do |per|%>
-      <% if group.id == per.group_id%>
-      <%= per.name%>
-      <% end %>
-      <% end %>
-    </td>
-  </tr>
+        <% end %>
 
-     <% end %>
+      </tbody>
+    </table>
 
-  </tbody>
-</table>
+    <br>
 
-<br>
+    <button type="button" name="button"><%= link_to 'New Group', new_group_path %></button>
 
-<button type="button" name="button"><%= link_to 'New Group', new_group_path %></button>
+    <p id="notice"><%= notice %></p>
 
+    <div class=" col-lg-offset-4">
 
+      <h1>Listing People</h1>
 
-<p id="notice"><%= notice %></p>
-
-<div class=" col-lg-offset-4">
-
-
-<h1>Listing People</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <!-- <th>Email</th>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <!-- <th>Email</th>
       <th>Tel</th> -->
-      <th>Group</th>
-      <th>Sensei</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <!-- <th>Group</th> -->
+            <th>Sensei</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
 
-  <tbody>
-    <% @people.each do |person| %>
-      <tr>
-        <td><%= person.name %></td>
-         <!-- <td><%= person.email %></td> -->
-        <!-- <td>0<%= person.tel %></td> -->
-        <td><%= person.group_id %></td>
-        <td><%= person.sensei %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-  <button type="button" name="button"> <%=link_to 'randomize', randomize_path%></button>
-<br>
-</div>
+        <tbody>
+          <% @people.each do |personson| %>
+          <tr>
+            <td><%= personson.name %></td>
+            <!-- <td><%= personson.email %></td> -->
+            <!-- <td>0<%= personson.tel %></td> -->
+            <!-- <td><%= personson.group_id %></td> -->
+            <td><%= personson.sensei %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <button type="button" name="button">
+        <%=link_to 'randomize', randomize_path%></button>
+      <br>
+    </div>

@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_personne, only: [:update_sensei]
   before_action :minim_group, only: [:random_people]
 
   # GET /groups
@@ -9,6 +10,18 @@ class GroupsController < ApplicationController
     @people = Person.all
   end
 
+def update_sensei
+  parse = @person.sensei
+
+  if parse
+    @person.sensei = false
+  else
+    @person.sensei = true
+end
+@person.save
+
+redirect_to :root
+end
 #algo random
   def random_people
     @groups = Group.all
@@ -97,6 +110,9 @@ class GroupsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
+    end
+    def set_personne
+      @person = Person.find(params[:id])
     end
 
 def minim_group

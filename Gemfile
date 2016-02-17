@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap_form'
 gem 'autoprefixer-rails'
 gem 'sprockets-rails', '>= 2.1.4'
+gem 'best_in_place'
 
 
 
