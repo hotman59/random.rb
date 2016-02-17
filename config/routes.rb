@@ -4,6 +4,7 @@ Rails.application.routes.draw do
    root 'groups#index'
    get 'change_sensei/:id' => 'groups#update_sensei', as: 'updatesensei'
    get 'randomize' => 'groups#random_people'
+   get 'clearteam/:id' => 'groups#clearteam', as: 'clearteam'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

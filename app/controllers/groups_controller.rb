@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :clearteam]
   before_action :set_personne, only: [:update_sensei]
   before_action :minim_group, only: [:random_people]
 
@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
 
 def update_sensei
   parse = @person.sensei
-
   if parse
     @person.sensei = false
   else
@@ -22,15 +21,30 @@ end
 
 redirect_to :root
 end
+
+
+def clearteam
+  team = Person.all
+  team.each do |person|
+  if person.group_id == @group.id
+    person.group_id = nil
+    person.save
+  end
+end
+redirect_to :root
+end
+
 #algo random
   def random_people
     @groups = Group.all
     @people = Person.all
+
     my_max_group = (@people.size / @groups.size).ceil + 1
     id_group = []
 
     @people.each do |p|
       p.group_id = 0
+      p.sensei = false
       p.save
     end
 
