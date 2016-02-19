@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: rand_group_production
-  username: rand_group
-  password: <%= ENV['RAND_GROUP_DATABASE_PASSWORD'] %>
+  database: deploy
+  username: deploy
+  password: azerty123
+  host: 'localhost'
